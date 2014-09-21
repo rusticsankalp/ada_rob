@@ -1,6 +1,6 @@
 public class Percolation {
     
-    QuickFindUF qf;
+    WeightedQuickUnionUF qf;
     int nN;
     int max;
     
@@ -21,7 +21,7 @@ public class Percolation {
        int topen[][] = new int[N][N];
        topen[0][0] =0;
        StdOut.printf("Created new test 2d array \n");
-       qf = new QuickFindUF(max+2);
+       qf = new WeightedQuickUnionUF(max+2);
        opened = new int[nN][nN];
        //topened[0][0
        StdOut.printf("Created new 2d array\n");
