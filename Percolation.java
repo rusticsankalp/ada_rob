@@ -14,15 +14,24 @@ public class Percolation {
     }
    public Percolation(int N)  // create N-by-N grid, with all sites blocked
    {
+       StdOut.printf("percolation :: N:%d \n",N);
        max = N*N;
+       nN = N;
         
+       int topen[][] = new int[N][N];
+       topen[0][0] =0;
+       StdOut.printf("Created new test 2d array \n");
        qf = new QuickFindUF(max+2);
+       opened = new int[nN][nN];
+       //topened[0][0
+       StdOut.printf("Created new 2d array\n");
        nN= N;
 
        for(int i =0;i<N;i++)
        {
-           for(int j =0 ;j <N; i++)
+           for(int j =0 ;j <N; j++)
            {
+               //StdOut.printf("percolation :: i:%d , j:%d \n",i,j);
                opened[i][j] =0;
            }
        }
@@ -31,10 +40,13 @@ public class Percolation {
    //i,j start at 0
    public void open(int i, int j)// open site (row i, column j) if it is not already
    {
+       StdOut.printf("open :: i:%d , j:%d \n",i,j);
        if(opened[i-1][j-1]==1)
        {
            return;
        }
+       
+       opened[i-1][j-1]=1;
        
        //left
        if(j>1)
@@ -78,15 +90,35 @@ public class Percolation {
        {
            qf.union(xyTod(i,j),max+1);
        }
+       
+       /*
+       for(int ii =0;ii<nN;ii++)
+       {
+           for(int jj =0 ;jj <nN; jj++)
+           {
+               StdOut.printf("  %d",opened[ii][jj]);
+               //opened[i][j] =0;
+           }
+           StdOut.printf("\n");
+       }
+       */
+       
    }
    
    public boolean isOpen(int i, int j)      // is site (row i, column j) open?
    {
-       return (opened[i][j]==1);
+       //StdOut.printf("isOpen :: i:%d , j:%d \n",i,j);
+       boolean res = (opened[i-1][j-1]==1);
+       //StdOut.printf("isOpen :: res:%B \n",res);
+           
+       return res;
    }
    public boolean isFull(int i, int j)      // is site (row i, column j) full?
    {
-       return (qf.connected(xyTod(i,j),0));
+       //StdOut.printf("isFull :: i:%d , j:%d \n",i,j);
+       boolean res = (qf.connected(xyTod(i,j),0));
+       //StdOut.printf("isFull :: res:%B \n",res);
+       return res;
    }
    public boolean percolates()              // does the system percolate?
    {
