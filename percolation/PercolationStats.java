@@ -22,23 +22,23 @@ public class PercolationStats {
    }
    public double mean()                     // sample mean of percolation threshold
    {
-       double mean=0;
+       //double mean=0;
        return mean;
    }
    public double stddev()                   // sample standard deviation of percolation threshold
    {
-       double sd=0;
-       return sd;
+       //double sd=0;
+       return stddev;
    }
    public double confidenceLo()             // returns lower bound of the 95% confidence interval
    {
-       double cl=0;
-       return cl;
+       //double cl=0;
+       return clo;
    }
    public double confidenceHi()             // returns upper bound of the 95% confidence interval
    {
-       double ch=0;
-       return ch;
+       //double ch=0;
+       return chi;
    }
    
    
@@ -54,19 +54,24 @@ public class PercolationStats {
        
        mean = StdStats.mean(responses);
        stddev = StdStats.stddev(responses);
+       double fact = (1.96*stddev)/Math.sqrt(n_T);
+       clo = mean - fact;
+       chi = mean + fact;
+       
+       StdOut.printf("mean \t = %f \n stddev \t = %f \n 95%% confidence interval \t = %f, %f" ,mean,stddev,clo,chi);
        //clo = StdStats.mean(responses);
        //chi = StdStats.mean(responses);
    }
   
    private void selectUopened(Percolation prc)
    {
-       ri =StdRandom.uniform(n_N);
-       rj = StdRandom.uniform(n_N);
+       ri =StdRandom.uniform(n_N)+1;
+       rj = StdRandom.uniform(n_N)+1;
          
        while(prc.isOpen(ri,rj))
        {
-           ri =StdRandom.uniform(n_N);
-           rj = StdRandom.uniform(n_N);
+           ri =StdRandom.uniform(n_N)+1;
+           rj = StdRandom.uniform(n_N)+1;
        }
    }
    private int runTillPercolation()

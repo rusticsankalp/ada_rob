@@ -14,17 +14,17 @@ public class Percolation {
     }
    public Percolation(int N)  // create N-by-N grid, with all sites blocked
    {
-       StdOut.printf("percolation :: N:%d \n",N);
+       //StdOut.printf("percolation :: N:%d \n",N);
        max = N*N;
        nN = N;
         
        int topen[][] = new int[N][N];
        topen[0][0] =0;
-       StdOut.printf("Created new test 2d array \n");
+       //StdOut.printf("Created new test 2d array \n");
        qf = new WeightedQuickUnionUF(max+2);
        opened = new int[nN][nN];
        //topened[0][0
-       StdOut.printf("Created new 2d array\n");
+       //StdOut.printf("Created new 2d array\n");
        nN= N;
 
        for(int i =0;i<N;i++)
@@ -40,7 +40,7 @@ public class Percolation {
    //i,j start at 0
    public void open(int i, int j)// open site (row i, column j) if it is not already
    {
-       StdOut.printf("open :: i:%d , j:%d \n",i,j);
+       //StdOut.printf("open :: i:%d , j:%d \n",i,j);
        if(opened[i-1][j-1]==1)
        {
            return;
@@ -99,7 +99,7 @@ public class Percolation {
        {
            for(int jj =0 ;jj <nN; jj++)
            {
-               StdOut.printf("  %d",opened[ii][jj]);
+               //StdOut.printf("  %d",opened[ii][jj]);
                //opened[i][j] =0;
            }
            StdOut.printf("\n");
