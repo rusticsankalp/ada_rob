@@ -59,9 +59,11 @@ public class Percolation {
        {
            if(opened[i-2][j-1]==1)
            {
-               //qf.union(ti,ti-nN);
                qf.union(xyTod(i,j),xyTod(i-1,j);
            }
+       }else if ( i ==1)
+       {
+           qf.union(xyTod(i,j),0);
        }
        
        //down
@@ -69,9 +71,12 @@ public class Percolation {
        {
            if(opened[i][j-1]==1)
            {
-               qf.union(ti,ti+nN);
                qf.union(xyTod(i,j),xyTod(i+1,j);
            }
+       }
+       else if ( i ==nN)
+       {
+           qf.union(xyTod(i,j),max+1);
        }
    }
    
