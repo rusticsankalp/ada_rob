@@ -2,7 +2,7 @@
 public class PercolationStats {
     
    //Percolation m_Prc;
-   private int nN, nT, ind, maxInd;
+   private int nN, nT, maxInd;
    private int ri, rj;
    private double []responses;
    
@@ -73,9 +73,9 @@ public class PercolationStats {
        clo = mean - fact;
        chi = mean + fact;
        
-       StdOut.printf(
-       "mean \t = %f \n stddev \t = %f \n 95%% confidence interval \t = %f, %f"
-        , mean, stddev, clo, chi);
+       //StdOut.printf(
+       //"mean \t = %f \n stddev \t = %f \n 95%% confidence interval \t = %f, %f"
+        //, mean, stddev, clo, chi);
        //clo = StdStats.mean(responses);
        //chi = StdStats.mean(responses);
    }
@@ -97,7 +97,7 @@ public class PercolationStats {
      int nopened = 0;
         
           
-     while (!prc.percolates() && ind < maxInd)
+     while (!prc.percolates())
      {
          //find and open a site
          selectUopened(prc);

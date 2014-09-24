@@ -1,5 +1,5 @@
 public class Percolation {
-    private WeightedQuickUnionUF qf;
+    private WeightedQuickUnionUF qf, qf2, qf3;
     private int nN;
     private int max;
     
@@ -16,6 +16,8 @@ public class Percolation {
         
        //StdOut.printf("Created new test 2d array \n");
        qf = new WeightedQuickUnionUF(max+2);
+       qf2 = new WeightedQuickUnionUF(max+2);
+       qf3 = new WeightedQuickUnionUF(max+2);
        opened = new int[nN][nN];
        //topened[0][0
        //StdOut.printf("Created new 2d array\n");
@@ -66,6 +68,8 @@ public class Percolation {
            if (opened[i-1][j-2] == 1)
            {
                qf.union(xyTod(i, j), xyTod(i, j-1));
+               qf2.union(xyTod(i, j), xyTod(i, j-1));
+               qf3.union(xyTod(i, j), xyTod(i, j-1));
            }
        }
        
@@ -75,6 +79,8 @@ public class Percolation {
            if (opened[i-1][j] == 1)
            {
                qf.union(xyTod(i, j), xyTod(i, j+1));
+               qf2.union(xyTod(i, j), xyTod(i, j+1));
+               qf3.union(xyTod(i, j), xyTod(i, j+1));
            }
        }
        
@@ -84,10 +90,13 @@ public class Percolation {
            if (opened[i-2][j-1] == 1)
            {
                qf.union(xyTod(i, j), xyTod(i-1, j));
+               qf2.union(xyTod(i, j), xyTod(i-1, j));
+               qf3.union(xyTod(i, j), xyTod(i-1, j));
            }
        } else if (i == 1)
        {
            qf.union(xyTod(i, j), 0);
+           qf3.union(xyTod(i, j), 0);
        }
        
        //down
@@ -96,11 +105,14 @@ public class Percolation {
            if (opened[i][j-1] == 1)
            {
                qf.union(xyTod(i, j), xyTod(i+1, j));
+               qf2.union(xyTod(i, j), xyTod(i+1, j));
+               qf3.union(xyTod(i, j), xyTod(i+1, j));
            }
        }
        else if (i == nN)
        {
-           qf.union(xyTod(i, j), max+1);
+           qf2.union(xyTod(i, j), max+1);
+           qf3.union(xyTod(i, j), max+1);
          //if((qf.connected(xyTod(i,j),max+1)) && (qf.connected(xyTod(i,j),0)))
            // qf.union(xyTod(i,j),max+1);
            //else
@@ -134,12 +146,13 @@ public class Percolation {
        verifyIndex(i, j);
        //StdOut.printf("isFull :: i:%d , j:%d \n",i,j);
        boolean res = (qf.connected(xyTod(i, j), 0));
+                          //&& qf2.connected(xyTod(i, j), max+1));
        //StdOut.printf("isFull :: res:%B \n",res);
        return res;
    }
    public boolean percolates()              // does the system percolate?
    {
-       return (qf.connected(max+1, 0));
+       return (qf3.connected(max+1, 0));
    }
    public static void main(String[] args)   // test client, optional
    {
