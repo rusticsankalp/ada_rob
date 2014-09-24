@@ -7,7 +7,7 @@ public class Percolation {
     int [][]opened;
     
     //row =1 col =1 min
-    private int  (int row , int col)
+    private int  xyTod(int row , int col)
     {
         //since row starts with one and is horizontal each row means n items
         return (row-1)*nN + col;
@@ -41,7 +41,7 @@ public class Percolation {
        {
            if(opened[i-1][j-2]==1)
            {
-               qf.union(xyTod(i,j),xyTod(i,j-1);
+               qf.union(xyTod(i,j),xyTod(i,j-1));
            }
        }
        
@@ -50,7 +50,7 @@ public class Percolation {
        {
            if(opened[i-1][j]==1)
            {
-               qf.union(xyTod(i,j),xyTod(i,j+1);
+               qf.union(xyTod(i,j),xyTod(i,j+1));
            }
        }
        
@@ -59,7 +59,7 @@ public class Percolation {
        {
            if(opened[i-2][j-1]==1)
            {
-               qf.union(xyTod(i,j),xyTod(i-1,j);
+               qf.union(xyTod(i,j),xyTod(i-1,j));
            }
        }else if ( i ==1)
        {
@@ -71,7 +71,7 @@ public class Percolation {
        {
            if(opened[i][j-1]==1)
            {
-               qf.union(xyTod(i,j),xyTod(i+1,j);
+               qf.union(xyTod(i,j),xyTod(i+1,j));
            }
        }
        else if ( i ==nN)
@@ -86,6 +86,7 @@ public class Percolation {
    }
    public boolean isFull(int i, int j)      // is site (row i, column j) full?
    {
+       
        boolean bResult = false;
        return bResult;
    }
