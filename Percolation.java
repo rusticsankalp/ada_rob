@@ -86,14 +86,11 @@ public class Percolation {
    }
    public boolean isFull(int i, int j)      // is site (row i, column j) full?
    {
-       
-       boolean bResult = false;
-       return bResult;
+       return (qf.connected(xyTod(i,j),0));
    }
    public boolean percolates()              // does the system percolate?
    {
-       boolean bResult = false;
-       return bResult;
+       return (qf.connected(max+1,0));
    }
    public static void main(String[] args)   // test client, optional
    {
