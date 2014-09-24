@@ -8,6 +8,9 @@ public class Percolation {
    public Percolation(int N)  // create N-by-N grid, with all sites blocked
    {
        //StdOut.printf("percolation :: N:%d \n",N);
+       
+       if (N <= 0) 
+           throw new IllegalArgumentException("Size or square N illegal");
        max = N*N;
        nN = N;
         
@@ -27,6 +30,14 @@ public class Percolation {
            }
        }
    }
+   
+   private void verifyIndex(int i , int j)
+   {
+       if (i <= 0 || i > nN) 
+           throw new IndexOutOfBoundsException("row index i out of bounds");
+       if (j <= 0 || j > nN) 
+           throw new IndexOutOfBoundsException("row index j out of bounds");
+   }
         
     //row =1 col =1 min
     private int  xyTod(int row , int col)
@@ -37,8 +48,10 @@ public class Percolation {
   
    
    //i,j start at 0
-   public void open(int i, int j)// open site (row i, column j) if it is not already
+   // open site (row i, column j) if it is not already
+   public void open(int i, int j)
    {
+       verifyIndex(i, j);
        //StdOut.printf("open :: i:%d , j:%d \n",i,j);
        if (opened[i-1][j-1] == 1)
        {
@@ -88,8 +101,8 @@ public class Percolation {
        else if (i == nN)
        {
            qf.union(xyTod(i, j), max+1);
-           //if((qf.connected(xyTod(i,j),max+1)) && (qf.connected(xyTod(i,j),0)))
-             // qf.union(xyTod(i,j),max+1);
+         //if((qf.connected(xyTod(i,j),max+1)) && (qf.connected(xyTod(i,j),0)))
+           // qf.union(xyTod(i,j),max+1);
            //else
        }
        
@@ -109,6 +122,7 @@ public class Percolation {
    
    public boolean isOpen(int i, int j)      // is site (row i, column j) open?
    {
+       verifyIndex(i, j);
        //StdOut.printf("isOpen :: i:%d , j:%d \n",i,j);
        boolean res = (opened[i-1][j-1] == 1);
        //StdOut.printf("isOpen :: res:%B \n",res);
@@ -117,6 +131,7 @@ public class Percolation {
    }
    public boolean isFull(int i, int j)      // is site (row i, column j) full?
    {
+       verifyIndex(i, j);
        //StdOut.printf("isFull :: i:%d , j:%d \n",i,j);
        boolean res = (qf.connected(xyTod(i, j), 0));
        //StdOut.printf("isFull :: res:%B \n",res);

@@ -10,6 +10,11 @@ public class PercolationStats {
    // perform T independent computational experiments on an N-by-N grid
    public PercolationStats(int N, int T)    
    {
+       if (N <= 0) 
+           throw new IllegalArgumentException("Size or square N illegal");
+       if (T <= 0) 
+           throw new IllegalArgumentException("num of exp T illegal");
+       
        nN = N;
        nT = T;
        
