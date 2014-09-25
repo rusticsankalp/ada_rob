@@ -1,9 +1,9 @@
 public class Percolation {
-    private WeightedQuickUnionUF qf, qf2, qf3;
+    private WeightedQuickUnionUF qf, qf3;
     private int nN;
     private int max;
     
-    private int [][]opened;
+    private boolean [][]opened;
     
    public Percolation(int N)  // create N-by-N grid, with all sites blocked
    {
@@ -16,9 +16,9 @@ public class Percolation {
         
        //StdOut.printf("Created new test 2d array \n");
        qf = new WeightedQuickUnionUF(max+2);
-       qf2 = new WeightedQuickUnionUF(max+2);
+       //qf2 = new WeightedQuickUnionUF(max+2);
        qf3 = new WeightedQuickUnionUF(max+2);
-       opened = new int[nN][nN];
+       opened = new boolean[nN][nN];
        //topened[0][0
        //StdOut.printf("Created new 2d array\n");
        nN = N;
@@ -28,7 +28,7 @@ public class Percolation {
            for (int j = 0; j < N; j++)
            {
                //StdOut.printf("percolation :: i:%d , j:%d \n",i,j);
-               opened[i][j] = 0;
+               opened[i][j] = false;
            }
        }
    }
@@ -55,20 +55,20 @@ public class Percolation {
    {
        verifyIndex(i, j);
        //StdOut.printf("open :: i:%d , j:%d \n",i,j);
-       if (opened[i-1][j-1] == 1)
+       if (opened[i-1][j-1])
        {
            return;
        }
        
-       opened[i-1][j-1] = 1;
+       opened[i-1][j-1] = true;
        
        //left
        if (j > 1)
        {
-           if (opened[i-1][j-2] == 1)
+           if (opened[i-1][j-2])
            {
                qf.union(xyTod(i, j), xyTod(i, j-1));
-               qf2.union(xyTod(i, j), xyTod(i, j-1));
+               //qf2.union(xyTod(i, j), xyTod(i, j-1));
                qf3.union(xyTod(i, j), xyTod(i, j-1));
            }
        }
@@ -76,10 +76,10 @@ public class Percolation {
        //right
        if (j < (nN))
        {
-           if (opened[i-1][j] == 1)
+           if (opened[i-1][j] == true)
            {
                qf.union(xyTod(i, j), xyTod(i, j+1));
-               qf2.union(xyTod(i, j), xyTod(i, j+1));
+               //qf2.union(xyTod(i, j), xyTod(i, j+1));
                qf3.union(xyTod(i, j), xyTod(i, j+1));
            }
        }
@@ -87,10 +87,10 @@ public class Percolation {
        //up 
        if (i > 1)
        {
-           if (opened[i-2][j-1] == 1)
+           if (opened[i-2][j-1])
            {
                qf.union(xyTod(i, j), xyTod(i-1, j));
-               qf2.union(xyTod(i, j), xyTod(i-1, j));
+               //qf2.union(xyTod(i, j), xyTod(i-1, j));
                qf3.union(xyTod(i, j), xyTod(i-1, j));
            }
        } else if (i == 1)
@@ -102,16 +102,16 @@ public class Percolation {
        //down
        if (i < nN)
        {
-           if (opened[i][j-1] == 1)
+           if (opened[i][j-1])
            {
                qf.union(xyTod(i, j), xyTod(i+1, j));
-               qf2.union(xyTod(i, j), xyTod(i+1, j));
+               //qf2.union(xyTod(i, j), xyTod(i+1, j));
                qf3.union(xyTod(i, j), xyTod(i+1, j));
            }
        }
        else if (i == nN)
        {
-           qf2.union(xyTod(i, j), max+1);
+           //qf2.union(xyTod(i, j), max+1);
            qf3.union(xyTod(i, j), max+1);
          //if((qf.connected(xyTod(i,j),max+1)) && (qf.connected(xyTod(i,j),0)))
            // qf.union(xyTod(i,j),max+1);
@@ -136,7 +136,7 @@ public class Percolation {
    {
        verifyIndex(i, j);
        //StdOut.printf("isOpen :: i:%d , j:%d \n",i,j);
-       boolean res = (opened[i-1][j-1] == 1);
+       boolean res = (opened[i-1][j-1]);
        //StdOut.printf("isOpen :: res:%B \n",res);
            
        return res;
