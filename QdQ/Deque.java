@@ -1,3 +1,4 @@
+import java.util.Iterator;
 public class Deque<Item> //implements Iterable<Item>
 {
    private class Node<T>
@@ -7,10 +8,25 @@ public class Deque<Item> //implements Iterable<Item>
            //StdOut.printf("Node \n");
            prev = p; 
            next = n;
+           //:BugResolved , this statement was missing
            value = val;
        }
        public T value;
        public Node<T> prev, next;
+   }
+   
+   private class DQIterator implements Iterator<Item>
+   {
+       DQIterator(Node<Item> vn)
+       {
+           node = vn;
+       }
+       Node<Item> node;
+       
+       //:BugResolved i was checking node.next!=null
+       public boolean hasNext(){return (node != null);}
+       public void remove() {}
+       public Item next() { Item item = node.value; node = node.next; return item; }
    }
    
    private Node<Item> first, last;
@@ -157,10 +173,10 @@ public class Deque<Item> //implements Iterable<Item>
        return item;
        
    }
-//   public Iterator<Item> iterator()         // return an iterator over items in order from front to end
-//   {
-//       return null;
-//   }
+   public Iterator<Item> iterator()         // return an iterator over items in order from front to end
+   {
+       return new DQIterator(first);
+   }
    
    
    public static void main(String[] args)   // unit testing

@@ -1,3 +1,4 @@
+import java.util.Iterator;
 public class TestDeque
 {
     public boolean AddRemoveSeqFirst(int N)
@@ -103,12 +104,44 @@ public class TestDeque
         return bRes;
     }
     
+    public boolean addIterTest(int N)
+    {
+        boolean bRes = true;
+        Deque<Integer> tq = new Deque<Integer>();
+        
+        for(int i = 0 ;i <N ;i++)
+        {
+            StdOut.printf("addIterTest :: Adding val : %d \n", i);
+            tq.addLast(i);
+        }
+        
+        Iterator<Integer> iter = tq.iterator();
+        int size = 0 ;
+        while(iter.hasNext())
+        {
+            StdOut.printf("addIterTest :: %d \n", iter.next());
+            size++;
+            //StdOutiter.next()
+        }
+        
+        
+        if(size != N)
+        {
+            StdOut.printf("addIterTest ::  size did not match \n");
+            bRes = false;
+        }
+        
+       
+        return bRes;
+    }
+    
     public static void main(String[] args)   // unit testing
    {
-       TestDeque ttq = new TestDeque();
-       for(int i =0 ; i <10 ; i++)
+       
+       for(int i =0 ; i <2 ; i++)
        {
-           if(!ttq.AddRemoveRand(500))
+           TestDeque ttq = new TestDeque();
+           if(!ttq.addIterTest(10))
            {
                StdOut.printf("Failed , Failed, failed , failed");
                break;
