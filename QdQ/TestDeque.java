@@ -54,14 +54,65 @@ public class TestDeque
     
     public boolean AddRemoveRand(int N)
     {
-      
+        int rand=0,eSize = 0, val;
+        boolean bRes = true;
+        Deque<Integer> tq = new Deque<Integer>();
+        for(int i = 0; i < N;i++)
+        {
+            if(eSize > 0)
+            {
+                if(tq.isEmpty())
+                {
+                    bRes = false;
+                    StdOut.printf("AddRemoveRand :: Failed isEmpty expected true \n");
+                }
+                
+                if(tq.size() != eSize)
+                {
+                    bRes = false;
+                    StdOut.printf("AddRemoveRand :: Failed size expected %d actual %d \n",eSize,tq.size());
+                }
+            }
+            val = StdRandom.uniform(N*100);
+            rand = StdRandom.uniform(4);
+            switch(rand)
+            {
+                case 0:
+                    tq.addFirst(val);
+                     StdOut.printf("AddRemoveRand :: addFirst: %d , size:%d \n",val,tq.size());
+                    break;
+                case 1:
+                    tq.addLast(val);
+                    StdOut.printf("AddRemoveRand :: addLast %d size:%d \n",val,tq.size());
+                    break;
+                case 2:
+                    if(!tq.isEmpty()){
+                       val = tq.removeFirst();
+                       StdOut.printf("AddRemoveRand :: removeFirst %d  size:%d \n",val,tq.size());
+                }
+                    break;
+                case 3:
+                    if(!tq.isEmpty()) {
+                       val = tq.removeLast();
+                       StdOut.printf("AddRemoveRand :: removeLast %d size:%d \n",val,tq.size());
+                }
+                    break;
+            }
+        }
         
-        return false;
+        return bRes;
     }
     
     public static void main(String[] args)   // unit testing
    {
        TestDeque ttq = new TestDeque();
-       ttq.AddRemoveSeqlast(5);
+       for(int i =0 ; i <10 ; i++)
+       {
+           if(!ttq.AddRemoveRand(500))
+           {
+               StdOut.printf("Failed , Failed, failed , failed");
+               break;
+           }
+       }
    }
 }

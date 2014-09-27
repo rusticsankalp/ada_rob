@@ -4,7 +4,7 @@ public class Deque<Item> //implements Iterable<Item>
    {
        public Node(T val, Node<T> p, Node<T> n)
        {
-           StdOut.printf("Node \n");
+           //StdOut.printf("Node \n");
            prev = p; 
            next = n;
            value = val;
@@ -20,11 +20,11 @@ public class Deque<Item> //implements Iterable<Item>
        first = null;
        last = null;
        size = 0;
-       StdOut.printf("Deque :: contructor \n");
+       //StdOut.printf("Deque :: contructor \n");
    }
    public boolean isEmpty()                 // is the deque empty?
    {
-       StdOut.printf("isEmpty :: %B \n", size <= 0);
+       //StdOut.printf("isEmpty :: %B \n", size <= 0);
        if(size <= 0)
            return true;
        else 
@@ -36,7 +36,7 @@ public class Deque<Item> //implements Iterable<Item>
    }
    public void addFirst(Item item)          // insert the item at the front
    {
-       StdOut.printf("addFirst \n");
+       //StdOut.printf("addFirst \n");
        if(item == null)
            throw new NullPointerException("attempted to add null in addFirst");
        
@@ -56,12 +56,12 @@ public class Deque<Item> //implements Iterable<Item>
            last = n;
        }
        
-       StdOut.printf("addFirst :: first.value : %d ", first.value);
-       StdOut.printf(" ,first.next : %B ",first.next != null );
-       StdOut.printf(" ,first.prev : %B \n",first.prev != null );
-       StdOut.printf("addFirst :: last.value : %d ", last.value);
-       StdOut.printf(" ,last.next : %B ",last.next != null );
-       StdOut.printf(" ,last.prev : %B \n",last.prev != null );
+       //StdOut.printf("addFirst :: first.value : %d ", first.value);
+       //StdOut.printf(" ,first.next : %B ",first.next != null );
+       //StdOut.printf(" ,first.prev : %B \n",first.prev != null );
+       //StdOut.printf("addFirst :: last.value : %d ", last.value);
+       //StdOut.printf(" ,last.next : %B ",last.next != null );
+       //StdOut.printf(" ,last.prev : %B \n",last.prev != null );
        
        size++;
    }
@@ -101,37 +101,37 @@ public class Deque<Item> //implements Iterable<Item>
    }
    public Item removeFirst()                // delete and return the item at the front
    {
-       StdOut.printf("removeFirst \n");
+       //StdOut.printf("removeFirst \n");
        if(isEmpty())
            throw new java.util.NoSuchElementException("attempted to remove from empty q in removeFirst");
        
        Node<Item> forget = first;
        Item item = forget.value;
        
-       if(item == null)
-       {
-           StdOut.printf("removeFirst :: item is null \n");
-       }
+//       if(item == null)
+//       {
+//           StdOut.printf("removeFirst :: item is null \n");
+//       }
        
-       StdOut.printf("removeFirst :: forget.value received \n");
+       //StdOut.printf("removeFirst :: forget.value received \n");
        
        if(forget.next != null)
        {
            first = forget.next;
            first.prev = null;
-           StdOut.printf("removeFirst :: next !=null \n");
+           //StdOut.printf("removeFirst :: next !=null \n");
        }
-       else
-       {
-           StdOut.printf("removeFirst :: next ==null \n");
-       }
-       StdOut.printf("removeFirst :: next null check ok\n");
+//       else
+//       {
+//           StdOut.printf("removeFirst :: next ==null \n");
+//       }
+       //StdOut.printf("removeFirst :: next null check ok\n");
        forget.next = null;
        forget.prev = null;
        
        forget = null;
        
-       StdOut.printf("removeFirst :: ready to return ok\n");
+       //StdOut.printf("removeFirst :: ready to return ok\n");
        size--;
        return item;
    }
