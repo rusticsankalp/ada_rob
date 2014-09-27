@@ -2,10 +2,12 @@ public class Deque<Item> //implements Iterable<Item>
 {
    private class Node<T>
    {
-       public Node(T value, Node<T> p, Node<T> n)
+       public Node(T val, Node<T> p, Node<T> n)
        {
+           StdOut.printf("Node \n");
            prev = p; 
            next = n;
+           value = val;
        }
        public T value;
        public Node<T> prev, next;
@@ -18,10 +20,12 @@ public class Deque<Item> //implements Iterable<Item>
        first = null;
        last = null;
        size = 0;
+       StdOut.printf("Deque :: contructor \n");
    }
    public boolean isEmpty()                 // is the deque empty?
    {
-       if(size <=0)
+       StdOut.printf("isEmpty :: %B \n", size <= 0);
+       if(size <= 0)
            return true;
        else 
            return false;
@@ -32,6 +36,7 @@ public class Deque<Item> //implements Iterable<Item>
    }
    public void addFirst(Item item)          // insert the item at the front
    {
+       StdOut.printf("addFirst \n");
        if(item == null)
            throw new NullPointerException("attempted to add null in addFirst");
        
@@ -50,6 +55,14 @@ public class Deque<Item> //implements Iterable<Item>
        {
            last = n;
        }
+       
+       StdOut.printf("addFirst :: first.value : %d ", first.value);
+       StdOut.printf(" ,first.next : %B ",first.next != null );
+       StdOut.printf(" ,first.prev : %B \n",first.prev != null );
+       StdOut.printf("addFirst :: last.value : %d ", last.value);
+       StdOut.printf(" ,last.next : %B ",last.next != null );
+       StdOut.printf(" ,last.prev : %B \n",last.prev != null );
+       
        size++;
    }
    
@@ -88,29 +101,44 @@ public class Deque<Item> //implements Iterable<Item>
    }
    public Item removeFirst()                // delete and return the item at the front
    {
+       StdOut.printf("removeFirst \n");
        if(isEmpty())
-           throw new java.util.NoSuchElementException("attempted to remove from emty q in removeFirst");
+           throw new java.util.NoSuchElementException("attempted to remove from empty q in removeFirst");
        
        Node<Item> forget = first;
        Item item = forget.value;
+       
+       if(item == null)
+       {
+           StdOut.printf("removeFirst :: item is null \n");
+       }
+       
+       StdOut.printf("removeFirst :: forget.value received \n");
        
        if(forget.next != null)
        {
            first = forget.next;
            first.prev = null;
+           StdOut.printf("removeFirst :: next !=null \n");
        }
-       
+       else
+       {
+           StdOut.printf("removeFirst :: next ==null \n");
+       }
+       StdOut.printf("removeFirst :: next null check ok\n");
        forget.next = null;
        forget.prev = null;
        
        forget = null;
        
+       StdOut.printf("removeFirst :: ready to return ok\n");
+       size--;
        return item;
    }
    public Item removeLast()                 // delete and return the item at the end
    {
        if(isEmpty())
-           throw new java.util.NoSuchElementException("attempted to remove from emty q in removeLast");
+           throw new java.util.NoSuchElementException("attempted to remove from empty q in removeLast");
        Node<Item> forget = last;
        Item item = forget.value;
        
@@ -124,6 +152,7 @@ public class Deque<Item> //implements Iterable<Item>
        forget.prev = null;
        
        forget = null;
+       size--;
        
        return item;
        
@@ -132,7 +161,10 @@ public class Deque<Item> //implements Iterable<Item>
 //   {
 //       return null;
 //   }
+   
+   
    public static void main(String[] args)   // unit testing
    {
+       
    }
 }
