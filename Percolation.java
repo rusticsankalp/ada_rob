@@ -1,10 +1,10 @@
 public class Percolation {
     
-    WeightedQuickUnionUF qf;
-    int nN;
-    int max;
+    private WeightedQuickUnionUF qf;
+    private int nN;
+    private int max;
     
-    int [][]opened;
+    private int [][]opened;
     
     //row =1 col =1 min
     private int  xyTod(int row , int col)
@@ -89,6 +89,9 @@ public class Percolation {
        else if ( i ==nN)
        {
            qf.union(xyTod(i,j),max+1);
+           //if((qf.connected(xyTod(i,j),max+1)) && (qf.connected(xyTod(i,j),0)))
+             // qf.union(xyTod(i,j),max+1);
+           //else
        }
        
        /*

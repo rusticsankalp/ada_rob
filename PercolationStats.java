@@ -2,11 +2,11 @@
 public class PercolationStats {
     
    //Percolation m_Prc;
-   int n_N,n_T,ind,maxInd;
-   int ri,rj;
-   double [] responses;
+   private int n_N,n_T,ind,maxInd;
+   private int ri,rj;
+   private double [] responses;
    
-   double mean , stddev, clo,chi;
+   private double mean , stddev, clo,chi;
    public PercolationStats(int N, int T)    // perform T independent computational experiments on an N-by-N grid
    {
        n_N = N;
