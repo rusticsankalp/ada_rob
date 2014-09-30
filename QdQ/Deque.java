@@ -1,5 +1,5 @@
 import java.util.Iterator;
-public class Deque<Item> //implements Iterable<Item>
+public class Deque<Item> implements Iterable<Item>
 {
    private class Node<T>
    {
