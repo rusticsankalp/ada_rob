@@ -15,7 +15,8 @@ public class RandomizedQueue<Item> implements Iterable<Item>
    private int capacity;
    public boolean isEmpty()                 // is the queue empty?
    {
-       return size <= 0;
+       //bug:size should be greater than capacity
+       return size<=0 ;
    }
    public int size()                        // return the number of items on the queue
    {
@@ -30,7 +31,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>
       boolean bRes = false;
       int nCap = capacity;
       
-      if(ratio <= .25 && capacity > (minSize*2) )
+      StdOut.printf("checkNresize :: ratio : %f m size: %d, capacity: %d  \n",ratio,size,capacity);
+      
+      if(ratio <= .25 && capacity > (minSize) )
       {
           nCap = ((int)capacity/2);
           bRes = true;
@@ -43,6 +46,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>
       
       if(bRes)
       {
+          StdOut.printf("checkNresize :: attempting to set newCap : %d \n",nCap);
          resize(nCap);
          capacity = nCap;
       }
@@ -63,27 +67,43 @@ public class RandomizedQueue<Item> implements Iterable<Item>
 //       else 
 //       {
        //items[size] = new Item();
-       StdOut.printf("enqueue ::  adding to items at posistion : %d",size);
-       if(items == null)
-       {
-           StdOut.printf("enqueue :: items is null");
-       }
+//       StdOut.printf("enqueue ::  adding to items at posistion : %d",size);
+//       if(items == null)
+//       {
+//           StdOut.printf("enqueue :: items is null");
+//       }
            checkNresize();
            items[size++] = item;
-           StdOut.printf("enqueue ::  before checkNResize");
-           
+           //StdOut.printf("enqueue ::  before checkNResize");
+//                  for(int i =0 ; i < size;i++)
+//       {
+//           StdOut.printf("%d ",items[i]);
+//       }
+       StdOut.printf("\n ");
        //}
    }
    public Item dequeue()                    // delete and return a random item
    {
        if(isEmpty())
            throw new java.util.NoSuchElementException("attempted to remove from empty q in dequeue");
-       
+       //StdOut.printf("deq 1 : ");
        checkNresize();
-       int npos= StdRandom.uniform(size); 
+       //StdOut.printf("deq 2 : ");
+       int npos= StdRandom.uniform(size);
+       if(size ==1)
+       {
+           npos = 0;
+       }
        Item item = items[npos];
-       items[npos] = items[size--];
-       
+       //bug: shold be --size instead of size--;
+       items[npos] = items[--size];
+       //StdOut.printf("------Removing at pos: %d \n ",npos);
+//       for(int i =0 ; i < size;i++)
+//       {
+//           StdOut.printf("%d ",items[i]);
+//       }
+       StdOut.printf("\n ");
+       //StdOut.printf("deq 3 : \n");
        return item;
    }
    public Item sample()                     // return (but do not delete) a random item
@@ -97,12 +117,12 @@ public class RandomizedQueue<Item> implements Iterable<Item>
    {
        //:bug used size instead of nsize
        Item []nArr = (Item[])new Object[nsize];
-       for(int i = 0; i < nsize; i++)
+       for(int i = 0; i < size; i++)
        {
            nArr[i] = items[i]; 
        }
        
-       capacity = nsize;
+       //capacity = nsize;
        items = nArr;
    }
    
@@ -116,14 +136,14 @@ public class RandomizedQueue<Item> implements Iterable<Item>
            items = arr;
            int npos;
            Item swap;
-           StdOut.printf("RQIterator ::  size : %d\n",size);
+           //StdOut.printf("RQIterator ::  size : %d\n",size);
            for(int i =0  ; i < size; i++)
            {
                items[i] = arr[i];
-               if(items[i] ==null )
-               {
-                   StdOut.printf("RQIterator :: is null \n");
-               }
+//               if(items[i] ==null )
+//               {
+//                   StdOut.printf("RQIterator :: is null \n");
+//               }
            }
            for(int i =0  ; i < size; i++)
            {
@@ -131,10 +151,10 @@ public class RandomizedQueue<Item> implements Iterable<Item>
                swap = items[npos];
                items[npos] = items[i];
                items[i] = swap;
-               if(items[i] ==null )
-               {
-                   StdOut.printf("RQIterator :: is null 2 \n");
-               }
+//               if(items[i] ==null )
+//               {
+//                   StdOut.printf("RQIterator :: is null 2 \n");
+//               }
            }
            pos = 0;
        }

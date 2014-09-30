@@ -111,15 +111,11 @@ public class TestRQueue
     
     public static void main(String[] args)   // unit testing
    {
-       
-       for(int i =0 ; i <1 ; i++)
+        
+       TestRQueue ttq = new TestRQueue();
+       if(!ttq.AddRemoveRand(5000))
        {
-           TestRQueue ttq = new TestRQueue();
-           if(!ttq.addIterTest(1))
-           {
-               StdOut.printf("Failed , Failed, failed , failed");
-               break;
-           }
+           StdOut.printf("Failed , Failed, failed , failed");
        }
-   }
+    }
 }
