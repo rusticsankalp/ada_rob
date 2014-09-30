@@ -1,10 +1,12 @@
-public class RandomizedQueue<Item> //implements Iterable<Item> 
+import java.util.Iterator;
+public class RandomizedQueue<Item> implements Iterable<Item> 
 {
    public RandomizedQueue()                 // construct an empty randomized queue
    {
        size = 0;
        capacity = 0;
        minSize = 10;
+       Item []nArr = (Item[])new Object[minSize];
    }
    private Item[] items;
    private int size, minSize;
@@ -26,7 +28,7 @@ public class RandomizedQueue<Item> //implements Iterable<Item>
       boolean bRes = false;
       int nCap = capacity;
       
-      if(ratio <= .25 && size > minSize)
+      if(ratio <= .25 && capacity > (minSize*2) )
       {
           nCap = ((int)capacity/2);
           bRes = true;
@@ -91,10 +93,49 @@ public class RandomizedQueue<Item> //implements Iterable<Item>
        capacity = nsize;
        items = nArr;
    }
-//   public Iterator<Item> iterator()         // return an independent iterator over items in random order
-//   {
-//       
-//   }
+   
+   private class RQIterator implements Iterator<Item>
+   {
+       RQIterator(Item [] arr, int sz)
+       {
+           size = sz;
+           items = arr;
+           int npos;
+           Item swap;
+           
+           for(int i =0  ; i < size; i++)
+           {
+               npos = StdRandom.uniform(size); 
+               swap = items[npos];
+               items[npos] = items[i];
+               items[i] = swap;
+           }
+           pos = 0;
+       }
+       Item [] items;
+       int size, pos;
+       
+       public boolean hasNext() 
+       {
+           return pos > size;
+       }
+       public void remove() 
+       {
+           throw new java.util.NoSuchElementException(
+                "Remove is not supported for this iterator");
+       }
+       public Item next() 
+       { 
+           if(!hasNext())
+               throw new java.util.NoSuchElementException("no more items");
+       
+           return items[pos++]; 
+       }
+   }
+   public Iterator<Item> iterator()         // return an independent iterator over items in random order
+   {
+       return new RQIterator(items,size);
+   }
    public static void main(String[] args)   // unit testing
    {
    }
