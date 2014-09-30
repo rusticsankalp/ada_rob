@@ -4,9 +4,11 @@ public class RandomizedQueue<Item> implements Iterable<Item>
    public RandomizedQueue()                 // construct an empty randomized queue
    {
        size = 0;
-       capacity = 0;
+       //:Bug order was different
        minSize = 10;
-       Item []nArr = (Item[])new Object[minSize];
+       capacity = minSize;
+       
+       items = (Item[])new Object[capacity];
    }
    private Item[] items;
    private int size, minSize;
@@ -42,6 +44,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>
       if(bRes)
       {
          resize(nCap);
+         capacity = nCap;
       }
        
    }
@@ -59,8 +62,16 @@ public class RandomizedQueue<Item> implements Iterable<Item>
 //       }
 //       else 
 //       {
-           items[size++] = item;
+       //items[size] = new Item();
+       StdOut.printf("enqueue ::  adding to items at posistion : %d",size);
+       if(items == null)
+       {
+           StdOut.printf("enqueue :: items is null");
+       }
            checkNresize();
+           items[size++] = item;
+           StdOut.printf("enqueue ::  before checkNResize");
+           
        //}
    }
    public Item dequeue()                    // delete and return a random item
@@ -84,8 +95,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>
    
    private void resize(int nsize)
    {
+       //:bug used size instead of nsize
        Item []nArr = (Item[])new Object[nsize];
-       for(int i = 0; i < size; i++)
+       for(int i = 0; i < nsize; i++)
        {
            nArr[i] = items[i]; 
        }
@@ -99,16 +111,30 @@ public class RandomizedQueue<Item> implements Iterable<Item>
        RQIterator(Item [] arr, int sz)
        {
            size = sz;
+           //:Bug assigning to wrong variable
+           items = (Item[])new Object[size];
            items = arr;
            int npos;
            Item swap;
-           
+           StdOut.printf("RQIterator ::  size : %d\n",size);
+           for(int i =0  ; i < size; i++)
+           {
+               items[i] = arr[i];
+               if(items[i] ==null )
+               {
+                   StdOut.printf("RQIterator :: is null \n");
+               }
+           }
            for(int i =0  ; i < size; i++)
            {
                npos = StdRandom.uniform(size); 
                swap = items[npos];
                items[npos] = items[i];
                items[i] = swap;
+               if(items[i] ==null )
+               {
+                   StdOut.printf("RQIterator :: is null 2 \n");
+               }
            }
            pos = 0;
        }
@@ -117,7 +143,8 @@ public class RandomizedQueue<Item> implements Iterable<Item>
        
        public boolean hasNext() 
        {
-           return pos > size;
+           //:bug incorrect comparison
+           return pos < size;
        }
        public void remove() 
        {
