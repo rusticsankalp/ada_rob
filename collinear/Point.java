@@ -4,7 +4,7 @@ public class Point implements Comparable<Point>
 {
 
     // compare points by slope
-    public final Comparator<Point> SLOPE_ORDER = new SlopeOrder();       // YOUR DEFINITION HERE
+    public final Comparator<Point> SLOPE_ORDER;       // YOUR DEFINITION HERE
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
@@ -16,9 +16,34 @@ public class Point implements Comparable<Point>
     
     private static class SlopeOrder implements Comparator<Point>
     {
+        
+        public SlopeOrder(Point ap)
+        {
+            p = ap;
+        }
+        
+        Point p;
         public int compare(Point v, Point w)
         {
-            return v.compareTo(w);
+            int res = 0;
+            
+            double slopeA = p.slopeTo(v);
+            double slopeB = p.slopeTo(w);
+            
+            if(slopeA < slopeB)
+            {
+                res = -1;
+            }
+            else if (slopeA > slopeB)
+            {
+                res = 1;
+            }
+            else
+            {
+                res = 0;
+            }
+            
+            return res;
         }
     }
 
@@ -27,6 +52,8 @@ public class Point implements Comparable<Point>
         /* DO NOT MODIFY */
         this.x = x;
         this.y = y;
+        
+        SLOPE_ORDER = new SlopeOrder(this);
     }
 
     // plot this point to standard drawing
@@ -43,19 +70,25 @@ public class Point implements Comparable<Point>
 
     // slope between this point and that point
     public double slopeTo(Point that) {
+        
+        if (that == null)
+           throw new NullPointerException("parameter null not allowed");
         double slope = 0;
-        if(that.x != x)
+        
+                
+        if(that.x == x)
         {
-            
-            slope = (that.y - y)/(that.x - x); 
-        }
-        else if(that.y != y)
-        {
-            slope = Double.POSITIVE_INFINITY;
+            if(that.y == y)
+                slope = Double.NEGATIVE_INFINITY;
+            else
+                slope = Double.POSITIVE_INFINITY;
         }
         else
         {
-            slope = Double.NEGATIVE_INFINITY;
+            if(that.y == y)
+                slope = 0;
+            else
+                slope = ((double) (that.y - y))/(that.x - x); 
         }
             
         return slope;
@@ -64,9 +97,12 @@ public class Point implements Comparable<Point>
     // is this point lexicographically smaller than that one?
     // comparing y-coordinates and breaking ties by x-coordinates
     public int compareTo(Point that) {
+        
+        if (that == null)
+           throw new NullPointerException("parameter null not allowed");
         int res = 0;
         
-        if(y<that.y)
+        if(y < that.y)
         {
             res = 1;
         }else if(y > that.y)
