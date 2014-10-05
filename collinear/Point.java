@@ -30,8 +30,22 @@ public class Point //implements Comparable<Point> {
 
     // slope between this point and that point
     public double slopeTo(Point that) {
-        /* YOUR CODE HERE */
-        return 0;
+        double slope = 0;
+        if(that.x != x)
+        {
+            
+            slope = (that.y - y)/(that.x - x); 
+        }
+        else if(that.y != y)
+        {
+            slope = Double.POSITIVE_INFINITY;
+        }
+        else
+        {
+            slope = Double.NEGATIVE_INFINITY;
+        }
+            
+        return slope;
     }
 
     // is this point lexicographically smaller than that one?
@@ -49,7 +63,7 @@ public class Point //implements Comparable<Point> {
         {
             if(x<that.x)
                 res = 1;
-            else if(x>that.x)
+            else if(x > that.x)
                 res = -1;
             else
                 res = 0 ;
@@ -66,7 +80,10 @@ public class Point //implements Comparable<Point> {
 
     // unit test
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+        //boolean bResult = true;
+        //Test CompareTo 
+        
+        
     }
 }
 
