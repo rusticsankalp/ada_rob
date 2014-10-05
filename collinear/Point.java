@@ -104,16 +104,16 @@ public class Point implements Comparable<Point>
         
         if(y < that.y)
         {
-            res = 1;
+            res = -1;
         }else if(y > that.y)
         {
-            res = -1;
+            res = 1;
         }else //y == that.y
         {
             if(x<that.x)
-                res = 1;
-            else if(x > that.x)
                 res = -1;
+            else if(x > that.x)
+                res = 1;
             else
                 res = 0 ;
         }
