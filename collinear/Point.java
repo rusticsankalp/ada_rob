@@ -1,13 +1,26 @@
-//import java.util.Comparator;
+import java.util.Comparator;
 
-public class Point //implements Comparable<Point> {
+public class Point implements Comparable<Point> 
 {
 
     // compare points by slope
-    //public final Comparator<Point> SLOPE_ORDER;       // YOUR DEFINITION HERE
+    public final Comparator<Point> SLOPE_ORDER = new SlopeOrder();       // YOUR DEFINITION HERE
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
+    
+//    private int compare(Point v, Point w)
+//    {
+//        return v.compareTo(w);
+//    }
+    
+    private static class SlopeOrder implements Comparator<Point>
+    {
+        public int compare(Point v, Point w)
+        {
+            return v.compareTo(w);
+        }
+    }
 
     // create the point (x, y)
     public Point(int x, int y) {
