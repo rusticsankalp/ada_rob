@@ -37,8 +37,25 @@ public class Point //implements Comparable<Point> {
     // is this point lexicographically smaller than that one?
     // comparing y-coordinates and breaking ties by x-coordinates
     public int compareTo(Point that) {
-        /* YOUR CODE HERE */
-        return 0;
+        int res = 0;
+        
+        if(y<that.y)
+        {
+            res = 1;
+        }else if(y > that.y)
+        {
+            res = -1;
+        }else //y == that.y
+        {
+            if(x<that.x)
+                res = 1;
+            else if(x>that.x)
+                res = -1;
+            else
+                res = 0 ;
+        }
+        
+        return res;
     }
 
     // return string representation of this point
