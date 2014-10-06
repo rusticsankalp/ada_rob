@@ -17,6 +17,8 @@ public class Fast {
             slope[i] = tp.slopeTo(g[i]);
         }
         
+        StdOut.printf("got slopes \n");
+        
         for(int i= 1;i<N;i++)
         {
             for(int j=0;j<i;j++)
@@ -37,37 +39,47 @@ public class Fast {
                 }
             }
         }
-        int sind = 0, send = 0;
+        
+        for(int i =0;i<N;i++)
+        {
+           StdOut.printf("%f, ",slope[i]); 
+        }
+        
+        StdOut.printf("\nsorted slopes \n");
+        int sind = 0;//, send = 0;
         tslope = slope[0];
         
         for(int i =1;i< N; i++)
         {
             if(slope[i] == tslope)
             {
-                send = i;
+                StdOut.printf("\nset send (%d,%d),  ",sind,i);
+                //send = i;
             }
             else
             {
-                if(send - sind > 4)
+                if(i - sind >= 3)
                 {
                     //draw and print
-                    
+                    StdOut.printf("print send, %d  ",i-sind);
                     //:bug started with i didnot change i to j++
-                    for(int j= sind;i<send;j++)
+                    for(int j= sind;j<i;j++)
                     {
                         //(14000, 10000) -> (18000, 10000) -> (19000, 10000) -> (21000, 10000)
                         StdOut.printf(g[j].toString());
                         StdOut.printf(" -> ");
                         g[sind].drawTo(g[j]);
                     }
-                    StdOut.printf(g[send].toString()+"\n");
-                    g[sind].drawTo(g[send]);
+                    StdOut.printf(g[i].toString()+"\n");
+                    g[sind].drawTo(g[i]);
                     StdDraw.show(0);
+                    StdOut.printf("draw send,  ");
                 }
                 sind = i;
-                send = i;
+                //send = i;
                 tslope = slope[i];
             }
+            StdOut.printf("\n");
         }
         
 //        for(int i= 0;i<3;i++)
