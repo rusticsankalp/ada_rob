@@ -22,7 +22,7 @@ public class Point implements Comparable<Point>
             p = ap;
         }
         
-        Point p;
+        private Point p;
         public int compare(Point v, Point w)
         {
             int res = 0;
@@ -30,7 +30,7 @@ public class Point implements Comparable<Point>
             double slopeA = p.slopeTo(v);
             double slopeB = p.slopeTo(w);
             
-            if(slopeA < slopeB)
+            if (slopeA < slopeB)
             {
                 res = -1;
             }
@@ -76,16 +76,16 @@ public class Point implements Comparable<Point>
         double slope = 0;
         
                 
-        if(that.x == x)
+        if (that.x == x)
         {
-            if(that.y == y)
+            if (that.y == y)
                 slope = Double.NEGATIVE_INFINITY;
             else
                 slope = Double.POSITIVE_INFINITY;
         }
         else
         {
-            if(that.y == y)
+            if (that.y == y)
                 slope = 0;
             else
                 slope = ((double) (that.y - y))/(that.x - x); 
@@ -102,20 +102,22 @@ public class Point implements Comparable<Point>
            throw new NullPointerException("parameter null not allowed");
         int res = 0;
         
-        if(y < that.y)
+        if (y < that.y)
         {
             res = -1;
-        }else if(y > that.y)
+        } 
+        else if (y > that.y)
         {
             res = 1;
-        }else //y == that.y
+        }
+        else //y == that.y
         {
-            if(x<that.x)
+            if(x < that.x)
                 res = -1;
-            else if(x > that.x)
+            else if (x > that.x)
                 res = 1;
             else
-                res = 0 ;
+                res = 0;
         }
         
         return res;
