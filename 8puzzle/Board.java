@@ -5,10 +5,26 @@ public class Board {
     {
         board = blocks;
         N = blocks.length;
+        size = N*N;
+        pZ = -1;
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                if(board[i][j] == 0)
+                {
+                    pZ = i*N + j;
+                    break;
+                }
+            }
+            if(pZ != -1)
+                break;
+        }
     }
     
     private int [][] board;
-    int N;
+    int N , size;
+    int pZ;
     // board dimension N
     public int dimension()                 
     {
@@ -78,7 +94,7 @@ public class Board {
     // is this board the goal board?
     public boolean isGoal()                
     {
-         int size = N*N-1;
+        int size = N*N-1;
         boolean match = true;
         int exp,row,col;
         for(int i =0 ; i < size ; i++)
@@ -102,12 +118,46 @@ public class Board {
     // a boadr that is obtained by exchanging two adjacent blocks in the same row
     public Board twin()                    
     {
-        return null;
+        int size = N*N-1;
+        int crow=0 ,ccol=0 , nrow=0 ,ncol=0 ;
+        for(int i =0;i<size;i++)
+        {
+            nrow = (i+1)/N;
+            ncol = (i+1)%N;
+            crow = i/N;
+            ccol = i%N;
+                    
+            if(board[nrow][ncol]!=0 && board[crow][ccol]!=0)
+            {
+                break;
+            }
+        }
+        
+        int [][]b2 = new int[N][N];
+        
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                b2[i][j]=board[i][j];
+            }
+        }
+        
+        b2[nrow][ncol] = board[crow][ccol];
+        b2[crow][ccol] = board[nrow][ncol];
+            
+        return new Board(b2);
     }
     // does this board equal y?
     public boolean equals(Object y)        
     {
-        return false;
+        Board test = (Board) y;
+        
+        if(toString() != test.toString())
+            return false;
+        
+        return true;
+
     }
     // all neighboring boards
     public Iterable<Board> neighbors()     
