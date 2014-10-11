@@ -53,12 +53,51 @@ public class Board {
     // sum of Manhattan distances between blocks and goal
     public int manhattan()                 
     {
-        return 0;
+        int size = N*N;
+        int manh = 0;
+        int expR,expC,row,col;
+        for(int i =0 ; i < size ; i++)
+        {
+            row = i/N;
+            col = i%N;
+            
+            expR = (board[row][col]-1)/N;
+            expC = (board[row][col]-1)%N;
+            
+            if(board[row][col]!=0)
+            {
+                manh+=Math.abs(expR-row)+Math.abs(expC-col);
+            }
+            
+             StdOut.printf(" %d,%d,%d,%d,",board[row][col],expR,expC,manh);
+             if(col == N-1)
+                StdOut.printf("\n");
+        }
+        return manh;
     }
     // is this board the goal board?
     public boolean isGoal()                
     {
-        return false;
+         int size = N*N-1;
+        boolean match = true;
+        int exp,row,col;
+        for(int i =0 ; i < size ; i++)
+        {
+            //:bug used size instead of i
+            row = i/N;
+            col = i%N;
+            exp = i+1;
+
+                 if(board[row][col] != exp)
+                 {
+                     if(board[row][col] != 0)
+                     {
+                         match = false;
+                         break;
+                     }
+                 }
+        }
+        return match;
     }
     // a boadr that is obtained by exchanging two adjacent blocks in the same row
     public Board twin()                    
@@ -76,10 +115,19 @@ public class Board {
         return null;
     }
     // string representation of this board (in the output format specified below)
-    public String toString()               
+    public String toString() 
     {
-        return "";
+        StringBuilder s = new StringBuilder();
+        s.append(N + "\n");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                s.append(String.format("%2d ", board[i][j]));
+            }
+            s.append("\n");
+        }
+        return s.toString();
     }
+
     
     private static Board readFile(String file)
     {
@@ -110,6 +158,8 @@ public class Board {
     {
         Board brd = readFile(args[0]);
         
-        StdOut.printf("\n hamming val : %d" , brd.hamming());
+        StdOut.printf("\n hamming val : %d \n" , brd.hamming());
+        
+        StdOut.printf("\n manhattan  val : %d" , brd.manhattan());
     }
 }
