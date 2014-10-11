@@ -17,32 +17,35 @@ public class Board {
     // number of blocks out of place
     public int hamming()
     {
-        int size = N*N -1;
+        int size = N*N-1;
         int hamming = 0;
-        int exp;
-        for(int i =0 ; i < N ; i++)
+        int exp,row,col;
+        for(int i =0 ; i < size ; i++)
         {
-             for(int j =0 ; j < N ; j++)
-             {
-                 exp = (i*N + j);
-                 if(board[i][j] != exp)
+            //:bug used size instead of i
+            row = i/N;
+            col = i%N;
+            exp = i+1;
+
+                 if(board[row][col] != exp)
                  {
-                     if(board[i][j] != 0)
+                     if(board[row][col] != 0)
                      {
                          hamming++;
-                         
                      }
                      else
                      {
                          
                      }
-                     
-                     
                  }
-                 StdOut.printf(" %d,%d,%B",board[i][j],exp,hamming);
-                 
-             }
-             StdOut.printf("\n");
+             StdOut.printf(" %d,%d,%d,",board[row][col],exp,hamming);
+             if(col == N-1)
+                StdOut.printf("\n");
+        }
+        
+        if(board[N-1][N-1] != 0)
+        {
+            hamming++;
         }
         
         return hamming;
@@ -107,6 +110,6 @@ public class Board {
     {
         Board brd = readFile(args[0]);
         
-        StdOut.printf("hamming val : %d" , brd.hamming());
+        StdOut.printf("\n hamming val : %d" , brd.hamming());
     }
 }
