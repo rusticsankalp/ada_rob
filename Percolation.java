@@ -7,12 +7,12 @@ public class Percolation {
     int [][]opened;
     
     //row =1 col =1 min
-    private int xyTod(int row , int col)
+    private int  (int row , int col)
     {
         //since row starts with one and is horizontal each row means n items
         return (row-1)*nN + col;
     }
-   public Percolation(int N)                // create N-by-N grid, with all sites blocked
+   public Percolation(int N)  // create N-by-N grid, with all sites blocked
    {
        max = N*N;
         
@@ -27,45 +27,50 @@ public class Percolation {
            }
        }
    }
-   public void open(int i, int j)           // open site (row i, column j) if it is not already
+   
+   //i,j start at 0
+   public void open(int i, int j)// open site (row i, column j) if it is not already
    {
-       opened[i][j]=1;
-       
-       int ti = (i+1)*nN+(j+1)*nN;
+       if(opened[i-1][j-1]==1)
+       {
+           return;
+       }
        
        //left
-       if(j>0)
+       if(j>1)
        {
-           if(opened[i-1][j]==1)
+           if(opened[i-1][j-2]==1)
            {
-               qf.union(ti,ti-1);
+               qf.union(xyTod(i,j),xyTod(i,j-1);
            }
        }
        
        //right
-       if(j<(nN-1))
+       if(j<(nN))
        {
            if(opened[i-1][j]==1)
            {
-               qf.union(ti,ti+1);
+               qf.union(xyTod(i,j),xyTod(i,j+1);
            }
        }
        
        //up 
-       if(i>0)
+       if(i>1)
        {
-           if(opened[i-1][j]==1)
+           if(opened[i-2][j-1]==1)
            {
-               qf.union(ti,ti-nN);
+               //qf.union(ti,ti-nN);
+               qf.union(xyTod(i,j),xyTod(i-1,j);
            }
        }
        
        //down
-       if(i<(nN-1))
+       if(i<nN)
        {
-           if(opened[i-1][j]==1)
+           if(opened[i][j-1]==1)
            {
                qf.union(ti,ti+nN);
+               qf.union(xyTod(i,j),xyTod(i+1,j);
            }
        }
    }
